@@ -7,8 +7,7 @@ defmodule Sequence do
     import Supervisor.Spec, warn: false
 
     children = [
-      # Define workers and child supervisors to be supervised
-      # worker(Sequence2.Worker, [arg1, arg2, arg3]),
+      worker(Sequence.Server, [123])
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
