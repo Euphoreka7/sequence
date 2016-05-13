@@ -1,20 +1,12 @@
 # Sequence
 
-**TODO: Add description**
+Simple sequence OTP server
 
-## Installation
-
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:
-
-  1. Add sequence to your list of dependencies in `mix.exs`:
-
-        def deps do
-          [{:sequence, "~> 0.0.1"}]
-        end
-
-  2. Ensure sequence is started before your application:
-
-        def application do
-          [applications: [:sequence]]
-        end
-
+## Usage
+```
+iex -S mix
+{:ok, pid} = GenServer.start_link(Sequence.Server, 100)
+GenServer.call(pid, :next_number)
+GenServer.call(pid, {:set_number, 999})
+GenServer.cast(pid, {:increment_number, 200})
+```
