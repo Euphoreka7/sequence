@@ -32,7 +32,7 @@ defmodule Sequence.Server do
     {:reply, current_number, {current_number+1, stash_pid}}
   end
 
-  def handle_cast({:set_number, new_number}, {current_number, stash_pid}) do
+  def handle_cast({:set_number, new_number}, {_current_number, stash_pid}) do
     {:noreply, {new_number, stash_pid}}
   end
 
