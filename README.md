@@ -38,3 +38,22 @@ GenServer.call(:seq, :next_number) # 100
 GenServer.call(:seq, :next_number) # 101
 :sys.get_status :seq
 ```
+#### Hot Swap
+increase `@vsn` to +1, change function:
+```
+def code_change("0", old_state = { current_number, stash_pid }, _extra) do
+  new_state = %State{current_number: current_number,
+                     stash_pid: stash_pid,
+                     delta: 1
+                     }
+  Logger.info "Changing code from 0 to 1"
+  Logger.info inspect(old_state)
+  Logger.info inspect(new_state)
+  { :ok, new_state }
+end
+
+:sys.suspend Sequence.Server
+c("updated_file.ex")
+:sys.change_code Sequence.Server, Sequence.Server, "0", []
+:sys.resume Sequence.Server
+```
