@@ -15,8 +15,9 @@ defmodule Sequence.Mixfile do
   # Type "mix help compile.app" for more information
   def application do
     [applications: [:logger],
-     mod: {Sequence, 456},
-     registered: [ Sequence.Server ]
+     mod: {Sequence, []},
+     env: [initial_number: 456],
+     registered: [:sequence]
     ]
   end
 
